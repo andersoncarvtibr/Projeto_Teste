@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Dashboard_Comercial"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "27dc5a14-52f1-4107-8b9d-5a94c7c1df3f"
+  }
+}

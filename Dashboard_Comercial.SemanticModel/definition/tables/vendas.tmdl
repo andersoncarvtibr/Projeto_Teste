@@ -1,0 +1,35 @@
+table vendas
+	lineageTag: 9a352d8f-1df1-477d-bfd1-f6a30c25cfa1
+
+	column id
+		dataType: string
+		lineageTag: 161f91c1-6186-4031-85e7-a719dec104cb
+		summarizeBy: none
+		sourceColumn: id
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor
+		dataType: int64
+		formatString: 0
+		lineageTag: 8f78e885-4091-4e25-acd6-1604c8925867
+		summarizeBy: sum
+		sourceColumn: valor
+
+		annotation SummarizationSetBy = Automatic
+
+	partition vendas = m
+		mode: import
+		source =
+				let
+				    Fonte = Excel.Workbook(File.Contents("C:\Anderson\Vendas.xlsx"), null, true),
+				    vendas_Sheet = Fonte{[Item="vendas",Kind="Sheet"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(vendas_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"id", type text}, {"valor", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
